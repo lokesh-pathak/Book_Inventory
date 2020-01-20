@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 mb-3">
+        <!-- To Display User name -->
+        <h4 class="text-center">Welcome {{ user.username }}</h4>
+        <!-- Logout Button -->
+        <button class="btn btn-danger">
+            <a href="{% url 'logout' %}">Logout</a>
+        </button>
+    </div>
+    <div class="col-sm-12 mt-2 text-center">
+        <!-- Create Inventory Button -->
+        <button class="btn btn-danger">
+            <a href="/add-inventory/">Create Inventory</a>
+        </button>
+        <!-- Search Inventory  -->
+        <form action="{% url 'search' %}" method="GET" style="margin: 0">
+            <input name="search" placeholder="Search..." value="{{request.GET.search}}">
+            <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+        <!-- To Display search result -->
+        {%if results%}
+        <table class="table table-hover">
+            <tr>
+                <th>Category</th>
+                <th>Book Name</th>
+                <th>Inventory In Date</th>
+                <th>Inventory Out Date</th>
+            </tr>
+            {% for inventory in results%}
+            {% for category in inventory.categories.all %}
+            <tr>
+                <td>{{category.name}}</td>
+                <td>{{inventory.book_name}}</td>
+                <td>{{inventory.crd}}</td>
+                <td>{{inventory.upd}}</td>
+            </tr>
+            {%endfor%}
+            {%endfor%}
+        </table>
+        {%endif%}
+        <!-- To Display Inventory result -->
+        {%if inventories%}
+        <table class="table table-hover">
+            <tr>
+                <th>Book Name</th>
+                <th>Inventory In Date</th>
+                <th>Inventory Out Date</th>
+            </tr>
+            {% for inventory in inventories%}
+            <tr>
+                <td>{{inventory.book_name}}</td>
+                <td>{{inventory.crd}}</td>
+                <td>{{inventory.upd}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+        {%endif%}
+
+    </div>
+</div>
+{% endblock %}

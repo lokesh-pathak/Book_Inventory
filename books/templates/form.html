@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Add Inventory {% endblock %}
+{% block content %}
+<div class="row flex-column align-items-center">
+    <div class="col-sm-12 login-block">
+        <form action="/add-inventory/" data-parsley-validate="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <input class="btn btn-primary" role="button" type="submit" value="Save">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
